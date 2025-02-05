@@ -1,7 +1,7 @@
-import React from "react";
+
 import ColorGame from "./ColorGame";
 import {ReactTyped} from "react-typed"
-import './app.css';
+import './App.css';
 
 
 function App() {
