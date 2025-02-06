@@ -15,10 +15,27 @@ const ColorGame = () => {
   const [colorOptions, setColorOptions] = useState([]);
   const [score, setScore] = useState(0);
   const [message, setMessage] = useState("Guess the correct color.");
+  const [timer, setTimer] = useState(10); 
 
   useEffect(() => {
     startNewGame();
   }, []);
+
+  useEffect(() => {
+    if (timer > 0) {
+      const interval = setInterval(() => {
+        setTimer((prevTime) => prevTime - 1);
+      }, 1000);
+
+      return () => clearInterval(interval); 
+    } else {
+      setMessage("Time's up! Start over.");
+      setScore(0);
+      setTimeout(() => {
+        startNewGame(); 
+      }, 500);
+    }
+  }, [timer]);
 
   const startNewGame = () => {
     const correctColor = generateRandomColor();
@@ -31,6 +48,7 @@ const ColorGame = () => {
     setTargetColor(correctColor);
     setColorOptions(shuffleArray([...options]));
     setMessage("Guess the correct color.");
+    setTimer(10);
   };
 
   const shuffleArray = (array) => {
@@ -39,16 +57,17 @@ const ColorGame = () => {
 
   const handleGuess = (color) => {
     if (color === targetColor) {
-      setMessage("Correct! ");
+      setMessage("Correct!");
       setScore((prevScore) => prevScore + 1);
       setTimeout(() => {
-        startNewGame(); 
-      }, 500); 
+        startNewGame();
+      }, 500);
     } else {
-      setMessage("Wrong!!!");
+      setMessage("Wrong! Start over.");
+      setScore(0);
       setTimeout(() => {
-        startNewGame(); 
-      }, 500); 
+        startNewGame();
+      }, 500);
     }
   };
 
@@ -65,6 +84,7 @@ const ColorGame = () => {
   return (
     <div className="container">
       <h2 className="instruction" data-testid="gameInstructions">{message}</h2>
+      <h3 data-testid="timer" className="timer">Time Left: {timer}s</h3>
       <div
         data-testid="colorBox"
         style={targetStyle}
@@ -74,6 +94,8 @@ const ColorGame = () => {
       </div>
 
       <h3 data-testid="score" className="score">Score: {score}</h3>
+       
+
       <div className="inner-container">
         {colorOptions.map((color, index) => (
           <button
@@ -100,7 +122,7 @@ const ColorGame = () => {
       <button
         data-testid="newGameButton"
         onClick={() => {
-          setScore(0); 
+          setScore(0);
           startNewGame();
         }}
         className="new-game"
