@@ -1,5 +1,5 @@
-import  { useState, useEffect } from "react";
-import './styles/ColorGame.css'
+import { useState, useEffect } from "react";
+import './styles/ColorGame.css';
 
 const generateRandomColor = () => {
   const letters = "0123456789ABCDEF";
@@ -11,20 +11,16 @@ const generateRandomColor = () => {
 };
 
 const ColorGame = () => {
-    
   const [targetColor, setTargetColor] = useState("");
   const [colorOptions, setColorOptions] = useState([]);
-  const [score, setScore] = useState(null );
+  const [score, setScore] = useState(0);
   const [message, setMessage] = useState("Guess the correct color.");
-
-
 
   useEffect(() => {
     startNewGame();
   }, []);
-  
+
   const startNewGame = () => {
-    setScore(0)
     const correctColor = generateRandomColor();
     let options = new Set([correctColor]);
 
@@ -35,8 +31,6 @@ const ColorGame = () => {
     setTargetColor(correctColor);
     setColorOptions(shuffleArray([...options]));
     setMessage("Guess the correct color.");
-    
-   
   };
 
   const shuffleArray = (array) => {
@@ -45,23 +39,29 @@ const ColorGame = () => {
 
   const handleGuess = (color) => {
     if (color === targetColor) {
-      setMessage("Correct! 🎉");
-      setScore(score+1 );
-      startNewGame();
+      setMessage("Correct! ");
+      setScore((prevScore) => prevScore + 1);
+      setTimeout(() => {
+        startNewGame(); 
+      }, 500); 
     } else {
-      setMessage("Wrong! Try again.");
+      setMessage("Wrong!!!");
+      setTimeout(() => {
+        startNewGame(); 
+      }, 500); 
     }
   };
+
   const targetStyle = {
     width: "160px",
     height: "160px",
     backgroundColor: targetColor,
     margin: "2px auto",
     border: "5px solid white",
-    borderRadius:"10%",
+    borderRadius: "10%",
     boxShadow: "0 0 20px 5px rgb(255, 255, 255)",
   };
-  
+
   return (
     <div className="container">
       <h2 className="instruction" data-testid="gameInstructions">{message}</h2>
@@ -69,6 +69,11 @@ const ColorGame = () => {
         data-testid="colorBox"
         style={targetStyle}
       ></div>
+      <div className="hr-container">
+        <div className="hr"></div>
+      </div>
+
+      <h3 data-testid="score" className="score">Score: {score}</h3>
       <div className="inner-container">
         {colorOptions.map((color, index) => (
           <button
@@ -78,23 +83,26 @@ const ColorGame = () => {
             className="target-button"
             style={{
               backgroundColor: color,
-              width: 'clamp(50px, 30vw, 100px)', 
-              height: 'clamp(50px, 30vw, 100px)', 
+              width: 'clamp(50px, 30vw, 100px)',
+              height: 'clamp(50px, 30vw, 100px)',
               marginLeft: "5%",
               marginRight: "2%",
-              marginBottom:"1.5%",
-              marginTop:"1.5%",
+              marginBottom: "1.5%",
+              marginTop: "1.5%",
               cursor: "pointer",
               border: "5px solid grey",
-              borderRadius:"10%",
+              borderRadius: "10%",
             }}
           ></button>
         ))}
       </div>
-      <h3 data-testid="score" className="score">Score: {score}</h3>
+
       <button
         data-testid="newGameButton"
-        onClick={startNewGame}
+        onClick={() => {
+          setScore(0); 
+          startNewGame();
+        }}
         className="new-game"
       >
         New Game
@@ -104,4 +112,3 @@ const ColorGame = () => {
 };
 
 export default ColorGame;
-
