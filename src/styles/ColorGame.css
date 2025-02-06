@@ -1,40 +1,46 @@
+*{
+        margin: 0;
+        padding: 0;
+}
 .container {
 text-align: center;
+margin-top: 50px                                                                                                                                                                                                                                                                                ;
 padding: 0px;
 background: rgb(255, 255, 255);
 border-radius: 50px;
 color: black;
+
 }
 
 .instruction {
-font-size: 5rem;
-padding: 50px;
+font-size: 2.5rem;
+padding-top: 10px;
 }
 
 .inner-container {
-padding: 0px;
+padding-left: 100px;
+padding-right: 100px;
 }
 
 .score {
 color: black;
-font-size: 2rem;
+font-size: 1.5rem;
 }
 
 .new-game {
-margin-top: 20px;
-padding: 20px 40px;
+margin-top: 5px;
 font-size: 16px;
 cursor: pointer;
 background-color: greenyellow;
 color: black;
 font-weight: 800;
-font-size: 1.5rem;
+font-size: 1rem;
 margin-bottom: 40px;
 }
 
 button:hover {
 background-color: yellow;
-border: 3px solid greenyellow;
+border: 2px solid greenyellow;
 }
 .target-button:hover{
         border: 5px solid black;
@@ -56,7 +62,7 @@ border: 3px solid greenyellow;
 }
 
 .score {
-        font-size: 1.5rem;
+        font-size: 1rem;
 }
 
 .new-game {
