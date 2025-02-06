@@ -12,9 +12,16 @@ color: black;
 
 }
 
+.hr{
+        border: 1px solid gray;
+        width: 300px;
+        margin: 10px auto;
+        
+}
 .instruction {
-font-size: 2.5rem;
+font-size: 2rem;
 padding-top: 10px;
+padding-bottom: 5px;
 }
 
 .inner-container {
