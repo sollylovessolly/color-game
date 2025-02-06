@@ -14,14 +14,17 @@ const ColorGame = () => {
     
   const [targetColor, setTargetColor] = useState("");
   const [colorOptions, setColorOptions] = useState([]);
-  const [score, setScore] = useState(0);
+  const [score, setScore] = useState(null );
   const [message, setMessage] = useState("Guess the correct color.");
+
+
 
   useEffect(() => {
     startNewGame();
   }, []);
-
+  
   const startNewGame = () => {
+    setScore(0)
     const correctColor = generateRandomColor();
     let options = new Set([correctColor]);
 
@@ -32,6 +35,8 @@ const ColorGame = () => {
     setTargetColor(correctColor);
     setColorOptions(shuffleArray([...options]));
     setMessage("Guess the correct color.");
+    
+   
   };
 
   const shuffleArray = (array) => {
@@ -41,17 +46,17 @@ const ColorGame = () => {
   const handleGuess = (color) => {
     if (color === targetColor) {
       setMessage("Correct! 🎉");
-      setScore(score + 1);
+      setScore(score+1 );
       startNewGame();
     } else {
       setMessage("Wrong! Try again.");
     }
   };
   const targetStyle = {
-    width: "300px",
-    height: "300px",
+    width: "160px",
+    height: "160px",
     backgroundColor: targetColor,
-    margin: "50px auto",
+    margin: "2px auto",
     border: "5px solid white",
     borderRadius:"10%",
     boxShadow: "0 0 20px 5px rgb(255, 255, 255)",
@@ -73,9 +78,12 @@ const ColorGame = () => {
             className="target-button"
             style={{
               backgroundColor: color,
-              width: 'clamp(100px, 30vw, 250px)', 
-              height: 'clamp(100px, 30vw, 250px)', 
-              margin: "1%",
+              width: 'clamp(50px, 30vw, 100px)', 
+              height: 'clamp(50px, 30vw, 100px)', 
+              marginLeft: "5%",
+              marginRight: "2%",
+              marginBottom:"1.5%",
+              marginTop:"1.5%",
               cursor: "pointer",
               border: "5px solid grey",
               borderRadius:"10%",
